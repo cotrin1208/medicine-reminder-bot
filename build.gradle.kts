@@ -3,6 +3,7 @@ val serializationVersion: String by project
 val coroutineVersion: String by project
 val gcpVersion: String by project
 val slf4jVersion: String by project
+val koinVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.9.22"
@@ -32,6 +33,9 @@ dependencies {
     implementation("io.ktor:ktor-client-json:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     implementation("io.ktor:ktor-client-auth:$ktorVersion")
+    // Koin
+    implementation("io.insert-koin:koin-core:$koinVersion")
+    implementation("io.insert-koin:koin-ktor:$koinVersion")
     // Kotlin Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
     // Kotlin Coroutine
@@ -39,12 +43,8 @@ dependencies {
     // Google Cloud Platform
     implementation(platform("com.google.cloud:libraries-bom:$gcpVersion"))
     implementation("com.google.cloud:google-cloud-datastore")
-    // LineBotSDK
-    implementation("com.linecorp.bot:line-bot-messaging-api-client:8.0.0")
-    implementation("com.linecorp.bot:line-bot-parser:8.0.0")
-    implementation("com.linecorp.bot:line-bot-webhook:8.0.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.8")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.22")
 }
 
 application {

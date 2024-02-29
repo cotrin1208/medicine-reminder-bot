@@ -1,5 +1,6 @@
 package io.github.cotrin1208
 
+import io.github.cotrin1208.plugin.configureKoin
 import io.github.cotrin1208.plugin.configureSerialization
 import io.github.cotrin1208.plugin.routing.configureRoute
 import io.ktor.server.application.*
@@ -13,4 +14,5 @@ fun main(args: Array<String>) {
 fun Application.module() {
     configureSerialization()
     configureRoute()
+    configureKoin()
 }
