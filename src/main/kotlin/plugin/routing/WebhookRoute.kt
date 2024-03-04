@@ -35,7 +35,7 @@ fun Route.webhook(
     route(path) {
         install(DoubleReceive)
         install(LineSignatureVerification) {
-            channelSecret = System.getenv("CHANNEL_SECRET")
+            channelSecret = System.getenv("CHANNEL_SECRET") ?: ""
         }
         post(body)
     }

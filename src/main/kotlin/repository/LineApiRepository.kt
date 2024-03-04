@@ -29,7 +29,7 @@ class LineApiRepository : ILineApiRepository {
         install(Auth) {
             bearer {
                 loadTokens {
-                    BearerTokens(System.getenv("CHANNEL_ACCESS_TOKEN"), "")
+                    BearerTokens(System.getenv("CHANNEL_ACCESS_TOKEN") ?: "", "")
                 }
             }
         }
