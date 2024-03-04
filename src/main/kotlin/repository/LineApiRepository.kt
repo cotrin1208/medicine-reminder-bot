@@ -17,19 +17,21 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
 class LineApiRepository : ILineApiRepository {
-    private val client = HttpClient(Apache) {
-        install(ContentNegotiation) {
-            json(Json {
-                encodeDefaults = true
-            })
-        }
-        install(DefaultRequest) {
-            url("https://api.line.me/v2/bot/")
-        }
-        install(Auth) {
-            bearer {
-                loadTokens {
-                    BearerTokens(System.getenv("CHANNEL_ACCESS_TOKEN") ?: "", "")
+    private val client by lazy {
+        HttpClient(Apache) {
+            install(ContentNegotiation) {
+                json(Json {
+                    encodeDefaults = true
+                })
+            }
+            install(DefaultRequest) {
+                url("https://api.line.me/v2/bot/")
+            }
+            install(Auth) {
+                bearer {
+                    loadTokens {
+                        BearerTokens(System.getenv("CHANNEL_ACCESS_TOKEN") ?: "", "")
+                    }
                 }
             }
         }

@@ -55,6 +55,36 @@ application {
     mainClass.set("io.github.cotrin1208.MainKt")
 }
 
+graalvmNative {
+    binaries {
+        named("main") {
+            fallback.set(false)
+            verbose.set(true)
+
+            buildArgs.add("--initialize-at-build-time=ch.qos.logback")
+            buildArgs.add("--initialize-at-build-time=io.ktor,kotlin")
+            buildArgs.add("--initialize-at-build-time=org.slf4j.LoggerFactory")
+            buildArgs.add("--initialize-at-build-time=org.slf4j.simple.SimpleLogger")
+            buildArgs.add("--initialize-at-build-time=org.slf4j.impl.StaticLoggerBinder")
+//            buildArgs.add("--initialize-at-run-time=io.netty.util.internal.logging.Log4JLogger")
+//            buildArgs.add("--initialize-at-run-time=io.netty.util.AbstractReferenceCounted")
+//            buildArgs.add("--initialize-at-run-time=io.netty.channel.epoll")
+//            buildArgs.add("--initialize-at-run-time=io.netty.handler.ssl ")
+//            buildArgs.add("--initialize-at-run-time=io.netty.channel.unix")
+            // buildArgs.add("--initialize-at-run-time=kotlinx.serialization.json.Json,kotlinx.serialization.json.JsonImpl")
+            // buildArgs.add("--initialize-at-run-time=kotlinx.serialization.modules.SerializersModuleKt")
+            // buildArgs.add("--initialize-at-run-time=kotlinx.serialization.json.Json.Default")
+
+            buildArgs.add("-H:+InstallExitHandlers")
+            buildArgs.add("-H:+ReportUnsupportedElementsAtRuntime")
+            buildArgs.add("-H:+ReportExceptionStackTraces")
+            buildArgs.add("--trace-class-initialization=kotlinx.serialization.modules.SerializersModuleKt,kotlinx.serialization.json.JsonImpl,kotlinx.serialization.json.Json")
+
+            imageName.set("graalvm-server")
+        }
+    }
+}
+
 tasks.test {
     useJUnitPlatform()
 }
