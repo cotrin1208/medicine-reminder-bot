@@ -17,7 +17,6 @@ fun Route.lineBotRoute() {
     val webhookHandleService: IWebhookService by inject()
 
     webhook("webhook") {
-        call.respond(HttpStatusCode.OK)
         val requestBody = call.receive<Webhook>()
         requestBody.events.forEach {
             when (it) {
@@ -25,6 +24,7 @@ fun Route.lineBotRoute() {
                 is WebhookEvent.Postback -> webhookHandleService.onPostbackEvent(it)
             }
         }
+        call.respond(HttpStatusCode.OK)
     }
 }
 

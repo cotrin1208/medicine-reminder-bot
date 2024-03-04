@@ -16,6 +16,7 @@ class WebhookService(
         val source = event.source
         if (source is Source.User) {
             val userProfile = lineApiRepository.getUserProfile(source.userId)
+            println(userProfile.displayName)
             val key = datastoreRepository.createKey(KindName.USER_KIND, userProfile.displayName)
             datastoreRepository.createEntity(key) {
                 set(PropertyName.FRIDAY_MORNING_RESPONDED, false)
