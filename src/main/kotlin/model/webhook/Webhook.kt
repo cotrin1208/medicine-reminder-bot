@@ -28,6 +28,18 @@ sealed interface WebhookEvent {
         val replyToken: String,
         val follow: FollowType,
     ) : WebhookEvent
+
+    @Serializable
+    @SerialName("postback")
+    data class Postback(
+        override val mode: String,
+        override val timestamp: Long,
+        override val source: Source,
+        override val webhookEventId: String,
+        override val deliveryContext: DeliveryContext,
+        val replyToken: String,
+        val postback: PostbackObject,
+    ) : WebhookEvent
 }
 
 @Serializable
@@ -39,3 +51,20 @@ data class DeliveryContext(
 data class FollowType(
     val isUnblocked: Boolean,
 )
+
+@Serializable
+data class PostbackObject(
+    val data: String,
+    val params: PostbackParams? = null,
+)
+
+@Serializable
+sealed interface PostbackParams {
+    @Serializable
+    @SerialName("date_select")
+    data class DateSelect(
+        val date: String? = null,
+        val time: String? = null,
+        val datetime: String? = null,
+    ) : PostbackParams
+}

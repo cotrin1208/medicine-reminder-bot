@@ -5,23 +5,25 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface Source {
+    val userId: String?
+
     @Serializable
     @SerialName("user")
     data class User(
-        val userId: String,
+        override val userId: String,
     ) : Source
 
     @Serializable
     @SerialName("group")
     data class Group(
         val groupId: String,
-        val userId: String?,
+        override val userId: String?,
     ) : Source
 
     @Serializable
     @SerialName("room")
     data class Room(
         val roomId: String,
-        val userId: String?,
+        override val userId: String?,
     ) : Source
 }

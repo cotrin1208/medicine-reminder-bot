@@ -1,4 +1,4 @@
-package io.github.cotrin1208.model.feature
+package io.github.cotrin1208.feature
 
 import io.github.cotrin1208.util.LineSignature
 import io.ktor.http.*
