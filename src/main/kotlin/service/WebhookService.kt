@@ -47,8 +47,8 @@ class WebhookService(
                 }
 
                 ActionData.SUNDAY_MORNING_RESPONDED -> {
-                    if (user.getBoolean(PropertyName.FRIDAY_EVENING_RESPONDED)) return
-                    updateRespondedFlag(user.key, PropertyName.FRIDAY_EVENING_RESPONDED)
+                    if (user.getBoolean(PropertyName.SUNDAY_MORNING_RESPONDED)) return
+                    updateRespondedFlag(user.key, PropertyName.SUNDAY_MORNING_RESPONDED)
                     sendRandomStickerMessage(user.getString(PropertyName.USER_ID))
                 }
             }
