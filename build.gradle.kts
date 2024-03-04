@@ -9,6 +9,8 @@ plugins {
     kotlin("jvm") version "1.9.22"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
     id("io.ktor.plugin") version "2.3.8"
+    id("org.graalvm.buildtools.native") version "0.9.8"
+    application
 }
 
 group = "io.github.cotrin1208"
@@ -16,6 +18,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    gradlePluginPortal()
 }
 
 dependencies {
@@ -24,7 +27,7 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:$slf4jVersion")
     // Ktor
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("io.ktor:ktor-server-cio:$ktorVersion")
     implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-double-receive:$ktorVersion")
@@ -56,6 +59,4 @@ tasks.test {
     useJUnitPlatform()
 }
 
-kotlin {
-    jvmToolchain(17)
-}
+
