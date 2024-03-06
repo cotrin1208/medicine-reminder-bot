@@ -31,26 +31,26 @@ class WebhookService(
         val source = event.source
         if (source !is Source.User) return
 
-        val userList = datastoreRepository.queryEntities(KindName.USER_KIND)
-        for (user in userList) {
-            when (event.postback.data) {
-                ActionData.FRIDAY_MORNING_RESPONDED -> {
-                    if (user.getBoolean(PropertyName.FRIDAY_MORNING_RESPONDED)) return
-                    updateRespondedFlag(user.key, PropertyName.FRIDAY_MORNING_RESPONDED)
-                    sendRandomStickerMessage(user.getString(PropertyName.USER_ID))
-                }
+        val user =
+            datastoreRepository.queryEntitiesWithPropertyName(KindName.USER_KIND, PropertyName.USER_ID, source.userId)
+                .first()
+        when (event.postback.data) {
+            ActionData.FRIDAY_MORNING_RESPONDED -> {
+                if (user.getBoolean(PropertyName.FRIDAY_MORNING_RESPONDED)) return
+                updateRespondedFlag(user.key, PropertyName.FRIDAY_MORNING_RESPONDED)
+                sendRandomStickerMessage(source.userId)
+            }
 
-                ActionData.FRIDAY_EVENING_RESPONDED -> {
-                    if (user.getBoolean(PropertyName.FRIDAY_EVENING_RESPONDED)) return
-                    updateRespondedFlag(user.key, PropertyName.FRIDAY_EVENING_RESPONDED)
-                    sendRandomStickerMessage(user.getString(PropertyName.USER_ID))
-                }
+            ActionData.FRIDAY_EVENING_RESPONDED -> {
+                if (user.getBoolean(PropertyName.FRIDAY_EVENING_RESPONDED)) return
+                updateRespondedFlag(user.key, PropertyName.FRIDAY_EVENING_RESPONDED)
+                sendRandomStickerMessage(source.userId)
+            }
 
-                ActionData.SUNDAY_MORNING_RESPONDED -> {
-                    if (user.getBoolean(PropertyName.SUNDAY_MORNING_RESPONDED)) return
-                    updateRespondedFlag(user.key, PropertyName.SUNDAY_MORNING_RESPONDED)
-                    sendRandomStickerMessage(user.getString(PropertyName.USER_ID))
-                }
+            ActionData.SUNDAY_MORNING_RESPONDED -> {
+                if (user.getBoolean(PropertyName.SUNDAY_MORNING_RESPONDED)) return
+                updateRespondedFlag(user.key, PropertyName.SUNDAY_MORNING_RESPONDED)
+                sendRandomStickerMessage(source.userId)
             }
         }
     }

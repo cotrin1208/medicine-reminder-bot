@@ -10,7 +10,9 @@ interface IDatastoreRepository {
 
     fun readEntity(key: Key): Entity?
 
-    fun queryEntities(kindName: String): List<Entity>
+    fun queryEntitiesInKind(kindName: String): List<Entity>
+
+    fun queryEntitiesWithPropertyName(kindName: String, propertyName: String, value: String): List<Entity>
 
     fun updateParameters(key: Key, func: Entity.Builder.() -> Unit): Entity?
 

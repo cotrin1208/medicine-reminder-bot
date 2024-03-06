@@ -1,9 +1,7 @@
 package io.github.cotrin1208.repository
 
-import com.google.cloud.datastore.DatastoreOptions
-import com.google.cloud.datastore.Entity
-import com.google.cloud.datastore.Key
-import com.google.cloud.datastore.Query
+import com.google.cloud.datastore.*
+import io.github.cotrin1208.util.PropertyName
 
 class DatastoreRepository : IDatastoreRepository {
     private val datastore by lazy {
@@ -24,8 +22,16 @@ class DatastoreRepository : IDatastoreRepository {
         return datastore.get(key)
     }
 
-    override fun queryEntities(kindName: String): List<Entity> {
+    override fun queryEntitiesInKind(kindName: String): List<Entity> {
         val query = Query.newEntityQueryBuilder().setKind(kindName).build()
+        return datastore.run(query).asSequence().toList()
+    }
+
+    override fun queryEntitiesWithPropertyName(kindName: String, propertyName: String, value: String): List<Entity> {
+        val query = Query.newEntityQueryBuilder().apply {
+            setKind(kindName)
+            setFilter(StructuredQuery.PropertyFilter.eq(PropertyName.USER_ID, value))
+        }.build()
         return datastore.run(query).asSequence().toList()
     }
 

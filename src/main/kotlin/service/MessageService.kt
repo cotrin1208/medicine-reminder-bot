@@ -16,7 +16,7 @@ class MessageService(
     private val lineApiRepository: ILineApiRepository,
 ) : IMessageService {
     override suspend fun sendFridayMorningReminder() {
-        val userList = datastoreRepository.queryEntities(KindName.USER_KIND)
+        val userList = datastoreRepository.queryEntitiesInKind(KindName.USER_KIND)
         for (user in userList) {
             sendReminder(
                 user.getString(PropertyName.USER_ID),
@@ -28,7 +28,7 @@ class MessageService(
     }
 
     override suspend fun sendFridayEveningReminder() {
-        val userList = datastoreRepository.queryEntities(KindName.USER_KIND)
+        val userList = datastoreRepository.queryEntitiesInKind(KindName.USER_KIND)
         for (user in userList) {
             sendReminder(
                 user.getString(PropertyName.USER_ID),
@@ -40,7 +40,7 @@ class MessageService(
     }
 
     override suspend fun sendSundayMorningReminder() {
-        val userList = datastoreRepository.queryEntities(KindName.USER_KIND)
+        val userList = datastoreRepository.queryEntitiesInKind(KindName.USER_KIND)
         for (user in userList) {
             sendReminder(
                 user.getString(PropertyName.USER_ID),
@@ -52,7 +52,7 @@ class MessageService(
     }
 
     override suspend fun sendFridayMorningReminderAgain() {
-        val userList = datastoreRepository.queryEntities(KindName.USER_KIND)
+        val userList = datastoreRepository.queryEntitiesInKind(KindName.USER_KIND)
         for (user in userList) {
             if (user.getBoolean(PropertyName.FRIDAY_MORNING_RESPONDED)) continue
             sendReminder(
@@ -64,7 +64,7 @@ class MessageService(
     }
 
     override suspend fun sendFridayEveningReminderAgain() {
-        val userList = datastoreRepository.queryEntities(KindName.USER_KIND)
+        val userList = datastoreRepository.queryEntitiesInKind(KindName.USER_KIND)
         for (user in userList) {
             if (user.getBoolean(PropertyName.FRIDAY_EVENING_RESPONDED)) continue
             sendReminder(
@@ -76,7 +76,7 @@ class MessageService(
     }
 
     override suspend fun sendSundayMorningReminderAgain() {
-        val userList = datastoreRepository.queryEntities(KindName.USER_KIND)
+        val userList = datastoreRepository.queryEntitiesInKind(KindName.USER_KIND)
         for (user in userList) {
             if (user.getBoolean(PropertyName.SUNDAY_MORNING_RESPONDED)) continue
             sendReminder(
