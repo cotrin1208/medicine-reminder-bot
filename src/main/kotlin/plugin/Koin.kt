@@ -1,5 +1,6 @@
 package io.github.cotrin1208.plugin
 
+import com.google.cloud.datastore.DatastoreOptions
 import io.github.cotrin1208.repository.DatastoreRepository
 import io.github.cotrin1208.repository.IDatastoreRepository
 import io.github.cotrin1208.repository.ILineApiRepository
@@ -24,6 +25,7 @@ fun Application.configureKoin() {
 }
 
 val repositoryModule = module {
+    single { DatastoreOptions.getDefaultInstance().service }
     singleOf(::DatastoreRepository) bind IDatastoreRepository::class
     singleOf(::LineApiRepository) bind ILineApiRepository::class
 }

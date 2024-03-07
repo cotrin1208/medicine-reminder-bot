@@ -3,11 +3,7 @@ package io.github.cotrin1208.repository
 import com.google.cloud.datastore.*
 import io.github.cotrin1208.util.PropertyName
 
-class DatastoreRepository : IDatastoreRepository {
-    private val datastore by lazy {
-        DatastoreOptions.getDefaultInstance().service
-    }
-
+class DatastoreRepository(private val datastore: Datastore) : IDatastoreRepository {
     override fun createKey(kindName: String, keyName: String): Key {
         return datastore.newKeyFactory().setKind(kindName).newKey(keyName)
     }
